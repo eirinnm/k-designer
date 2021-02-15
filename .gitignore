@@ -1,3 +1,8 @@
 *.2bit
 *.pyc
 twobitreader/
+
+/node_modules/
+/public/build/
+
+.DS_Store
