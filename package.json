@@ -2,6 +2,7 @@
   "name": "svelte-app",
   "version": "1.0.0",
   "scripts": {
+    "seq": "ts-node src/getKasparV3.ts",
     "build": "rollup -c",
     "dev": "rollup -c -w",
     "start": "sirv public",
@@ -10,6 +11,9 @@
   "devDependencies": {
     "@rollup/plugin-commonjs": "^17.0.0",
     "@rollup/plugin-node-resolve": "^11.0.0",
+    "@rollup/plugin-typescript": "^6.0.0",
+    "@tsconfig/svelte": "^1.0.0",
+    "@types/node": "^14.14.28",
     "rollup": "^2.3.4",
     "rollup-plugin-css-only": "^3.1.0",
     "rollup-plugin-livereload": "^2.0.0",
@@ -18,10 +22,9 @@
     "svelte": "^3.0.0",
     "svelte-check": "^1.0.0",
     "svelte-preprocess": "^4.0.0",
-    "@rollup/plugin-typescript": "^6.0.0",
-    "typescript": "^3.9.3",
+    "ts-node": "^9.1.1",
     "tslib": "^2.0.0",
-    "@tsconfig/svelte": "^1.0.0"
+    "typescript": "^3.9.3"
   },
   "dependencies": {
     "sirv-cli": "^1.0.0"

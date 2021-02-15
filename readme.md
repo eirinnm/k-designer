@@ -4,22 +4,31 @@
 
 ## Usage
 
-### Web interface (Requires Node.JS)
+### Initial Setup
 
-After cloning the repository, run the following to install dependencies and build the app:
+Requires [Node.js](https://nodejs.org/en/)
 
 ```sh
+git clone https://github.com/zouden/k-designer.git
+cd k-designer
 npm install
 npm run build
 ```
 
-Then run `npm start` to launch the web server. Open a browser and connect to [localhost:5000](http://localhost:5000).
+### Web interface
 
-### Command line interface (Requires Python)
+1. Launch the web server by running `npm start`
+1. Open a browser and connect to [localhost:5000](http://localhost:5000).
 
-Run `getKasparV3.py <sequence>` where \<sequence\> is in the form AAAGTTCTGGTGC[TG]GGATGAGGC.
+### Command line interface
 
-### Positional markers (no longer supported in Web UI!)
+```sh
+npm run seq <sequence>
+```
+
+where `<sequence>` is in the form AAAGTTCTGGTGC[TG]GGATGAGGC.
+
+### Positional markers (currently no longer supported)
 
 To use the tool's "option 1" which generates primers based on genome coordinates, a genome file must be provided. Currently this is hard-coded as `danRer11.2bit`. This file is 431mb and can be found [here](http://hgdownload.soe.ucsc.edu/gbdb/danRer11/). Download it and place it in the project's root directory.
 

@@ -98,7 +98,7 @@ const findReverse = (sequence: Sequence) => {
   const minLength = 18;
   const maxLength = 30;
   let minWeight = Infinity; // set a high starting value
-  let bestOligo: string;
+  let bestOligo = '';
   for (
     let startPos = minGap;
     startPos < sequence.length - minLength;
@@ -120,7 +120,17 @@ const findReverse = (sequence: Sequence) => {
 
 const reverseComplement = (sequence: Sequence) =>
   sequence
-    ?.split('')
+    .split('')
     .map((c) => ({ A: 'T', T: 'A', C: 'G', G: 'C' }[c]))
     .reverse()
     .join('');
+
+// running in nodeJS and as the main script (not imported via require)
+if (typeof require !== 'undefined' && require.main === module) {
+  const [, , seq] = process.argv;
+  if (!seq) {
+    console.log('Provide a sequence in the form AAAGTTCTGGTGC[TG]GGATGAGGC');
+  } else {
+    console.log(fromSeq(seq));
+  }
+}
