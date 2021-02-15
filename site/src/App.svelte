@@ -1,74 +1,55 @@
 <script lang="ts">
-  import { fromGenome, fromSequence } from './designer';
+  import { fromSeq } from './getKasparV3';
 
-  let snpList = `6 47916081 CG
-6 48072811 CA MainSNP
-8 12485673 AT OtherSNP`;
   let seqList =
     'Abcc6a GCTGGTATGCCTAGCAAGAGCTCTTCTCAGAAAGACAAAAGTTCTGGTGC[TG]GGATGAGGCAACAGCTGCACTGGACCTGGAGACAGACACGCTGATCCAGT';
-  let report;
 
-  const snpReport = () => (report = fromGenome(snpList));
-  const seqReport = () => (report = fromSequence(seqList));
-  const resetReport = () => (report = undefined);
+  $: report = seqList
+    .split('\n')
+    .map((s) => s.split(/\s+/))
+    .map(([arg1, arg2]) => (arg2 ? { name: arg1, seq: arg2 } : { seq: arg1 }))
+    .filter(({ seq }) => seq?.length > 50)
+    .map(({ seq, name }) => fromSeq(seq, name))
+    .join('\n');
 </script>
 
 <svelte:head><title>K designer</title></svelte:head>
 
+<div class="block heading">
+  <p>K primer designer</p>
+  <div style="font-size: small">
+    &copy; 2013-2021 Eirinn Mackay, Hubrecht Institute & University College
+    London
+  </div>
+  <p style="font-size: small; font-weight: bold;">
+    Updated 2021: rewritten in JS, but no longer supports danRer11
+  </p>
+</div>
+
+<div class="block main">
+  <p>
+    Provide a sequence with the mutation in the form [WM], where W is wildtype
+    base and M is mutant.
+  </p>
+  <p>Include 50bp on either side of the mutation.</p>
+  <p>
+    For deletions, use the shortest common sequence and make M the first base
+    after the deletion.
+  </p>
+  <p>
+    <textarea
+      bind:value={seqList}
+      cols="120"
+      rows="12"
+      style="font-size: 8pt"
+    />
+  </p>
+</div>
+
 {#if report}
-  <button on:click={resetReport}>Go Back</button>
-  <div class="block heading small">Your primers are ready</div>
+  <div class="block heading small">Your primers are:</div>
   <div class="block main small">
-    <pre>{JSON.stringify(report, null, 2)}</pre>
-  </div>
-{:else}
-  <div class="block heading">
-    <p>K primer designer</p>
-    <div style="font-size: small">
-      &copy; 2013-2018 Eirinn Mackay, Hubrecht Institute & University College
-      London
-    </div>
-    <p style="font-size: small; font-weight: bold;">
-      Updated 2018: now using danRer11
-    </p>
-  </div>
-  <div class="block main">
-    <p>
-      Option 1: Provide a list of SNPs with chromosome, position, reference base
-      and mutant base.
-    </p>
-    <p>
-      A name can be provided (optional). The appropriate sequence will be taken
-      from danRer11.
-    </p>
-    <form on:submit|preventDefault={snpReport}>
-      <p>
-        <textarea bind:value={snpList} cols="72" rows="12" />
-      </p>
-      <input type="submit" value="Generate primers from genome" />
-    </form>
-  </div>
-  <div class="block main">
-    <p>
-      Option 2: Provide a sequence with the mutation in the form [WM], where W
-      is wildtype base and M is mutant.
-    </p>
-    <p>Include 50bp on either side of the mutation.</p>
-    <p>
-      For deletions, use the shortest common sequence and make M the first base
-      after the deletion.
-    </p>
-    <form on:submit|preventDefault={seqReport}>
-      <p>
-        <textarea
-          bind:value={seqList}
-          cols="120"
-          rows="12"
-          style="font-size: 8pt"
-        />
-      </p>
-      <input type="submit" value="Generate primers from sequence" />
-    </form>
+    <pre>{report}</pre>
   </div>
 {/if}
 
