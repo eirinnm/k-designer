@@ -7,13 +7,7 @@ import { from2seqs } from './getKasparV3';
     'GCTGGTATGCCTAGCAAGAGCTCTTCTCAGAAAGACAAAAGTTCTGGTGCTGGATGAGGCAACAGCTGCACTGGACCTGGAGACAGACACGCTGATCCAGT';
   let mtSeq = 
     'GCTGGTATGCCTAGCAAGAGCTCTTCTCAGAAAGACAAAAGTTCTGGTGC--GGGATGAGGCAACAGCTGCACTGGACCTGGAGACAGACACGCTGATCCAGT';
-  // $: report = seqList
-  //   .split('\n')
-  //   .map((s) => s.split(/\s+/))
-  //   .map(([arg1, arg2]) => (arg2 ? { name: arg1, seq: arg2 } : { seq: arg1 }))
-  //   .filter(({ seq }) => seq?.length > 50)
-  //   .map(({ seq, name }) => fromSeq(seq, name))
-  //   .join('\n');
+
   let report: ReturnType<typeof from2seqs>; 
   let reverse_report: ReturnType<typeof from2seqs>;
   let error: undefined | Error;
@@ -34,10 +28,11 @@ import { from2seqs } from './getKasparV3';
   <p>K primer designer</p>
   <div style="font-size: small">
     &copy; 2013-2021 Eirinn Mackay, Hubrecht Institute & University College
-    London
+    London.
+    Source available on <a href="https://github.com/zouden/k-designer">Github</a>.
   </div>
   <p style="font-size: small; font-weight: bold;">
-    Updated 2021: rewritten in JS, but no longer supports danRer11. Thanks to David Rolle.
+    Updated 2021: rewritten in JS using Svelte. Thanks to David Rolle (@miridius).
   </p>
 </div>
 
